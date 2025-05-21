@@ -1,0 +1,5 @@
+dependencies {
+    implementation 'com.amazonaws:aws-android-sdk-core:2.57.0'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.57.0'  // For S3 storage
+    implementation 'com.amazonaws:aws-android-sdk-cognito:2.57.0'  // For Cognito authentication
+}
