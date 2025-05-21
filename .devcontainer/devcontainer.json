@@ -1,0 +1,189 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = 800;
+canvas.height = 600;
+
+// Car properties
+let car = {
+    x: 100,
+    y: 300,
+    width: 50,
+    height: 30,
+    speed: 0,
+    maxSpeed: 5,
+    acceleration: 0.2,
+    friction: 0.05,
+    angle: 0
+};
+
+// Key controls
+let keys = {
+    ArrowUp: false,
+    ArrowDown: false,
+    ArrowLeft: false,
+    ArrowRight: false
+};
+
+document.addEventListener("keydown", (event) => {
+    if (keys.hasOwnProperty(event.key)) {
+        keys[event.key] = true;
+    }
+});
+
+document.addEventListener("keyup", (event) => {
+    if (keys.hasOwnProperty(event.key)) {
+        keys[event.key] = false;
+    }
+});
+
+// Game loop
+function update() {
+    if (keys.ArrowUp) {
+        car.speed += car.acceleration;
+    }
+    if (keys.ArrowDown) {
+        car.speed -= car.acceleration;
+    }
+    if (keys.ArrowLeft) {
+        car.angle -= 0.05;
+    }
+    if (keys.ArrowRight) {
+        car.angle += 0.05;
+    }
+
+    // Apply friction
+    car.speed *= (1 - car.friction);
+    if (Math.abs(car.speed) < 0.1) car.speed = 0;
+
+    // Movement
+    car.x += Math.cos(car.angle) * car.speed;
+    car.y += Math.sin(car.angle) * car.speed;
+
+    // Keep car within bounds
+    if (car.x < 0) car.x = 0;
+    if (car.x > canvas.width) car.x = canvas.width;
+    if (car.y < 0) car.y = 0;
+    if (car.y > canvas.height) car.y = canvas.height;
+}
+
+function drawCar() {
+    ctx.save();
+    ctx.translate(car.x, car.y);
+    ctx.rotate(car.angle);
+    ctx.fillStyle = "red";
+    ctx.fillRect(-car.width / 2, -car.height / 2, car.width, car.height);
+    ctx.restore();
+}
+
+function drawTrack() {
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 5;
+    ctx.strokeRect(50, 50, 700, 500);
+}
+
+function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawTrack();
+    update();
+    drawCar();
+    requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+{
+} const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = 800;
+canvas.height = 600;
+
+// Car properties
+let car = {
+    x: 100,
+    y: 300,
+    width: 50,
+    height: 30,
+    speed: 0,
+    maxSpeed: 5,
+    acceleration: 0.2,
+    friction: 0.05,
+    angle: 0
+};
+
+// Key controls
+let keys = {
+    ArrowUp: false,
+    ArrowDown: false,
+    ArrowLeft: false,
+    ArrowRight: false
+};
+
+document.addEventListener("keydown", (event) => {
+    if (keys.hasOwnProperty(event.key)) {
+        keys[event.key] = true;
+    }
+});
+
+document.addEventListener("keyup", (event) => {
+    if (keys.hasOwnProperty(event.key)) {
+        keys[event.key] = false;
+    }
+});
+
+// Game loop
+function update() {
+    if (keys.ArrowUp) {
+        car.speed += car.acceleration;
+    }
+    if (keys.ArrowDown) {
+        car.speed -= car.acceleration;
+    }
+    if (keys.ArrowLeft) {
+        car.angle -= 0.05;
+    }
+    if (keys.ArrowRight) {
+        car.angle += 0.05;
+    }
+
+    // Apply friction
+    car.speed *= (1 - car.friction);
+    if (Math.abs(car.speed) < 0.1) car.speed = 0;
+
+    // Movement
+    car.x += Math.cos(car.angle) * car.speed;
+    car.y += Math.sin(car.angle) * car.speed;
+
+    // Keep car within bounds
+    if (car.x < 0) car.x = 0;
+    if (car.x > canvas.width) car.x = canvas.width;
+    if (car.y < 0) car.y = 0;
+    if (car.y > canvas.height) car.y = canvas.height;
+}
+
+function drawCar() {
+    ctx.save();
+    ctx.translate(car.x, car.y);
+    ctx.rotate(car.angle);
+    ctx.fillStyle = "red";
+    ctx.fillRect(-car.width / 2, -car.height / 2, car.width, car.height);
+    ctx.restore();
+}
+
+function drawTrack() {
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 5;
+    ctx.strokeRect(50, 50, 700, 500);
+}
+
+function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawTrack();
+    update();
+    drawCar();
+    requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
